@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text('ListView 基础测试'),),
+      appBar: AppBar(title: Text('ListView 基础测试'),),
       body: ListViewDemo(),
     );
   }

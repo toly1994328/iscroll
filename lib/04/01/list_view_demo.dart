@@ -15,14 +15,29 @@ class ScrollableTest extends StatelessWidget {
     return Viewport(
       offset: position,
       slivers: [
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (_, index) => ItemBox(index: index),
-          childCount: 60,
-        ))
+        buildSliverGrid(),
+        buildSliverList(),
+        buildSliverGrid(),
       ],
     );
   }
+
+  Widget buildSliverGrid() => SliverGrid(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 4,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8
+    ),
+      delegate: SliverChildBuilderDelegate(
+            (_, index) => Container(color: Colors.purple,),
+        childCount: 8,
+      ));
+
+  Widget buildSliverList() => SliverList(
+          delegate: SliverChildBuilderDelegate(
+        (_, index) => ItemBox(index: index),
+        childCount: 20,
+      ));
 }
 
 class ItemBox extends StatelessWidget {
