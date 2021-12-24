@@ -80,13 +80,14 @@ class _HomePageState extends State<HomePage> {
     return SliverToBoxAdapter(
       child: Container(
         alignment: Alignment.center,
-        height: 200,
+        height: 220,
         color: Colors.amber,
         child: Wrap(
           direction: Axis.vertical,
           spacing: 2,
           children: [
             Text('axisDirection:${constraints.axisDirection}'),
+            Text('crossAxisDirection:${constraints.crossAxisDirection}'),
             Text('growthDirection:${constraints.growthDirection}'),
             Text('viewportMainAxisExtent:${constraints.viewportMainAxisExtent}'),
             Text('crossAxisExtent:${constraints.crossAxisExtent}'),

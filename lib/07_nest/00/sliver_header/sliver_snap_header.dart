@@ -18,20 +18,21 @@ class _SliverSnapHeaderState extends State<SliverSnapHeader>
   FloatingHeaderSnapConfiguration? _snapConfiguration;
   PersistentHeaderShowOnScreenConfiguration? _showOnScreenConfiguration;
 
-  void _updateSnapConfiguration() {
+  void _initSnapConfiguration() {
     _snapConfiguration = FloatingHeaderSnapConfiguration(
       curve: Curves.easeOut,
       duration: const Duration(milliseconds: 200),
     );
+
     _showOnScreenConfiguration =
         const PersistentHeaderShowOnScreenConfiguration(
-            minShowOnScreenExtent: 0);
+            minShowOnScreenExtent: double.infinity);
   }
 
   @override
   void initState() {
     super.initState();
-    _updateSnapConfiguration();
+    _initSnapConfiguration();
   }
 
   @override
@@ -41,7 +42,7 @@ class _SliverSnapHeaderState extends State<SliverSnapHeader>
       pinned: false,
       delegate: _SliverSnapHeaderDelegate(
           vsync: this,
-          child:widget.child,
+          child: widget.child,
           snapConfiguration: _snapConfiguration,
           showOnScreenConfiguration: _showOnScreenConfiguration),
     );
@@ -50,9 +51,7 @@ class _SliverSnapHeaderState extends State<SliverSnapHeader>
 
 class _SliverSnapHeaderDelegate extends SliverPersistentHeaderDelegate {
 
-
   final PreferredSizeWidget child;
-
 
   @override
   final TickerProvider vsync;
@@ -84,6 +83,9 @@ class _SliverSnapHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant _SliverSnapHeaderDelegate oldDelegate) {
-    return oldDelegate.child != child;
+    return oldDelegate.child != child ||
+        vsync != oldDelegate.vsync ||
+        snapConfiguration != oldDelegate.snapConfiguration ||
+        showOnScreenConfiguration != oldDelegate.showOnScreenConfiguration;
   }
 }

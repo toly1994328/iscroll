@@ -80,37 +80,27 @@ class _HomePageState extends State<HomePage> {
       TextStyle(color: Colors.blue, fontWeight: FontWeight.bold);
 
   Widget _builder(BuildContext context, SliverConstraints constraints) {
-    print(constraints);
+    print('===========${constraints}');
     return SliverToBoxAdapter(
       child: Stack(
         children: [
           Container(
             alignment: Alignment.center,
-            height: 200,
+            height: 220,
             color: Colors.amber,
             child: Wrap(
               direction: Axis.vertical,
               spacing: 2,
               children: [
-                Text(
-                  'axisDirection:${constraints.axisDirection}',
-                  style: staticStyle,
-                ),
-                Text('growthDirection:${constraints.growthDirection}',
-                    style: staticStyle),
-                Text(
-                    'viewportMainAxisExtent:${constraints.viewportMainAxisExtent}',
-                    style: staticStyle),
-                Text('crossAxisExtent:${constraints.crossAxisExtent}',
-                    style: staticStyle),
-                Text(
-                    'precedingScrollExtent:${constraints.precedingScrollExtent}',
-                    style: staticStyle),
+                Text('axisDirection:${constraints.axisDirection}', style: staticStyle,),
+                Text('crossAxisDirection:${constraints.crossAxisDirection}', style: staticStyle),
+                Text('growthDirection:${constraints.growthDirection}', style: staticStyle),
+                Text('viewportMainAxisExtent:${constraints.viewportMainAxisExtent}', style: staticStyle),
+                Text('crossAxisExtent:${constraints.crossAxisExtent}', style: staticStyle),
+                Text('precedingScrollExtent:${constraints.precedingScrollExtent}', style: staticStyle),
                 Text('userScrollDirection:${constraints.userScrollDirection}'),
-                Text(
-                    'remainingPaintExtent:${constraints.remainingPaintExtent}'),
-                Text(
-                    'remainingCacheExtent:${constraints.remainingCacheExtent}'),
+                Text('remainingPaintExtent:${constraints.remainingPaintExtent}'),
+                Text('remainingCacheExtent:${constraints.remainingCacheExtent}'),
                 Text('overlap:${constraints.overlap}'),
                 Text('cacheOrigin:${constraints.cacheOrigin}'),
                 Text('scrollOffset:${constraints.scrollOffset}'),
@@ -240,7 +230,7 @@ class HelperPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print(size);
+    // print(size);
 
     canvas.translate(constraints.crossAxisExtent, 0);
     // canvas.drawCircle(Offset.zero, 10, Paint()..color = Colors.red);
@@ -276,38 +266,38 @@ class HelperPainter extends CustomPainter {
         Offset.zero.translate(
             -textPainter.width - 30, constraints.remainingPaintExtent / 2));
 
-    // Offset endP = Offset(20 - constraints.crossAxisExtent, 0);
-    // Offset startP = Offset(
-    //     20 - constraints.crossAxisExtent, -constraints.precedingScrollExtent);
-    //
-    // Path arrowPathP = Path()
-    //   ..moveTo(startP.dx, startP.dy)
-    //   ..relativeLineTo(-5, 10)
-    //   ..moveTo(startP.dx, startP.dy)
-    //   ..relativeLineTo(5, 10)
-    //   ..moveTo(startP.dx, startP.dy)
-    //   ..relativeLineTo(0, constraints.precedingScrollExtent)
-    //   ..moveTo(endP.dx, endP.dy)
-    //   ..relativeLineTo(5, -10)
-    //   ..moveTo(endP.dx, endP.dy)
-    //   ..relativeLineTo(-5, -10);
-    //
-    // canvas.drawPath(
-    //     arrowPathP,
-    //     Paint()
-    //       ..color = Colors.blue
-    //       ..style = PaintingStyle.stroke
-    //       ..strokeWidth = 2);
-    //
-    // textPainter.text = TextSpan(
-    //     text:
-    //         'precedingScrollExtent:\n${constraints.precedingScrollExtent.toStringAsFixed(4)}',
-    //     style: TextStyle(backgroundColor: Colors.blue, color: Colors.white));
-    // textPainter.layout();
-    // textPainter.paint(
-    //     canvas,
-    //     Offset.zero.translate(-constraints.crossAxisExtent + 30,
-    //         -constraints.precedingScrollExtent / 2));
+    Offset endP = Offset(20 - constraints.crossAxisExtent, 0);
+    Offset startP = Offset(
+        20 - constraints.crossAxisExtent, -constraints.precedingScrollExtent);
+
+    Path arrowPathP = Path()
+      ..moveTo(startP.dx, startP.dy)
+      ..relativeLineTo(-5, 10)
+      ..moveTo(startP.dx, startP.dy)
+      ..relativeLineTo(5, 10)
+      ..moveTo(startP.dx, startP.dy)
+      ..relativeLineTo(0, constraints.precedingScrollExtent)
+      ..moveTo(endP.dx, endP.dy)
+      ..relativeLineTo(5, -10)
+      ..moveTo(endP.dx, endP.dy)
+      ..relativeLineTo(-5, -10);
+
+    canvas.drawPath(
+        arrowPathP,
+        Paint()
+          ..color = Colors.blue
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2);
+
+    textPainter.text = TextSpan(
+        text:
+            'precedingScrollExtent:\n${constraints.precedingScrollExtent.toStringAsFixed(4)}',
+        style: TextStyle(backgroundColor: Colors.blue, color: Colors.white));
+    textPainter.layout();
+    textPainter.paint(
+        canvas,
+        Offset.zero.translate(-constraints.crossAxisExtent + 30,
+            -constraints.precedingScrollExtent / 2));
   }
 
   @override
