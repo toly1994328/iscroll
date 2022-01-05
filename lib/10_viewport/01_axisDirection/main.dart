@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/rendering/viewport_offset.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,27 +28,42 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = data
-        .map((index) => ItemBox(
-              index: index,
-            ))
-        .toList();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GridView 测试'),
+        title: const Text('Scrollable 测试'),
       ),
-      body:
-      GridView(
+      body: Scrollable(
+        axisDirection: AxisDirection.right,
+        // axisDirection: AxisDirection.down,
+        // axisDirection: AxisDirection.right,
+        // axisDirection: AxisDirection.left,
+        viewportBuilder: _buildViewPort,
+      ),
+    );
+  }
 
-        children: children,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 8,
-            childAspectRatio: 0.5,
-            mainAxisSpacing: 8,
-        ),
-      ),
+  Widget _buildViewPort(BuildContext context, ViewportOffset position) {
+    return Viewport(
+      axisDirection: AxisDirection.right,
+      // axisDirection: AxisDirection.down,
+      // axisDirection: AxisDirection.right,
+      // axisDirection: AxisDirection.left,
+      offset: position,
+      slivers: [_buildSliverList()],
+    );
+  }
+
+  Widget _buildSliverList() {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+          _buildItemByIndex,
+          childCount: data.length,
+        ));
+  }
+
+  Widget _buildItemByIndex(BuildContext context, int index) {
+    return ItemBox(
+      index: data[index],
     );
   }
 }

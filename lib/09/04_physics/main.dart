@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/rendering/viewport_offset.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,31 +24,46 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final List<int> data = List.generate(60, (index) => index + 1);
+  final List<int> data = List.generate(8, (index) => index + 1);
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = data
-        .map((index) => ItemBox(
-              index: index,
-            ))
-        .toList();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GridView 测试'),
+        title: const Text('Scrollable#physics'),
       ),
       body:
-      GridView(
+      Scrollable(
+        physics: const ClampingScrollPhysics(),
+        // physics: const BouncingScrollPhysics(),
+        // physics: const PageScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
+        // physics: const AlwaysScrollableScrollPhysics(),
 
-        children: children,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 8,
-            childAspectRatio: 0.5,
-            mainAxisSpacing: 8,
-        ),
+
+        viewportBuilder: _buildViewPort,
       ),
+    );
+  }
+
+  Widget _buildViewPort(BuildContext context, ViewportOffset position) {
+    return Viewport(
+      offset: position,
+      slivers: [_buildSliverList()],
+    );
+  }
+
+  Widget _buildSliverList() {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+          _buildItemByIndex,
+          childCount: data.length,
+        ));
+  }
+
+  Widget _buildItemByIndex(BuildContext context, int index) {
+    return ItemBox(
+      index: data[index],
     );
   }
 }
@@ -59,7 +75,7 @@ class ItemBox extends StatelessWidget {
     Key? key,
     required this.index,
   }) : super(key: key) {
-    print('----构建ItemBox-----$index--------');
+    // print('----构建ItemBox-----$index--------');
   }
 
   Color get color => Colors.blue.withOpacity((index % 10) * 0.1);
