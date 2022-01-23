@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
 }
 
 class MyApp extends StatelessWidget {
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  HomePage(),
+      home: HomePage(),
     );
   }
 }
@@ -42,7 +35,6 @@ class HomePage extends StatelessWidget {
       CustomScrollView(
         slivers: [
           _buildBox(),
-          _buildStickBox(),
           SliverPadding(
             padding: EdgeInsets.all(8),
             sliver: _buildSliverGrid(),
@@ -90,13 +82,6 @@ class HomePage extends StatelessWidget {
       index: data[index],
     );
   }
-
-  Widget _buildStickBox() {
-   return SliverPersistentHeader(
-      pinned: true,
-      delegate: FixedPersistentHeaderDelegate(height: 54),
-    );
-  }
 }
 
 class ItemBox extends StatelessWidget {
@@ -120,38 +105,5 @@ class ItemBox extends StatelessWidget {
         style: const TextStyle(fontSize: 20),
       ),
     );
-  }
-}
-
-class FixedPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final double height;
-
-  FixedPersistentHeaderDelegate({required this.height});
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      height: height,
-      alignment: Alignment.center,
-      color: Colors.red,
-      child: Text(
-        'FixedPersistentHeader',
-        // 'FixedPersistentHeader:${shrinkOffset.toStringAsFixed(1)}',
-        style: TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => height;
-
-  @override
-  double get minExtent => height;
-
-  @override
-  bool shouldRebuild(covariant FixedPersistentHeaderDelegate oldDelegate) {
-    return oldDelegate.height != height;
   }
 }
