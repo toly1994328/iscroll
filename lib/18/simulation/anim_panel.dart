@@ -19,10 +19,10 @@ class _AnimPanelState extends State<AnimPanel>
   final Duration animDuration = const Duration(milliseconds: 1000);
 
   static final Tolerance _kDefaultTolerance = Tolerance(
-    velocity: 1.0 / (0.050 * WidgetsBinding.instance!.window.devicePixelRatio),
+    velocity: 1.0 / (0.050 * WidgetsBinding.instance.window.devicePixelRatio),
     // logical pixels per second
     distance: 1.0 /
-        WidgetsBinding.instance!.window.devicePixelRatio, // logical pixels
+        WidgetsBinding.instance.window.devicePixelRatio, // logical pixels
   );
 
   TextEditingController _speedCtrl = TextEditingController(text: '1000');

@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
 
   bool _listenNotification(OverscrollIndicatorNotification notification) {
     print('${notification.runtimeType}:${notification.leading}  ');
-    notification.disallowGlow();
+    notification.disallowIndicator();
         return true;
   }
 }
