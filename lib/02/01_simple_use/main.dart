@@ -28,9 +28,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> children = data
-        .map((index) => ItemBox(
-              index: index,
-            ))
+        .map((index) => ItemBox(index: index))
         .toList();
 
     return Scaffold(
@@ -54,9 +52,7 @@ class ItemBox extends StatelessWidget {
   ItemBox({
     Key? key,
     required this.index,
-  }) : super(key: key) {
-    print('----构建ItemBox-----$index--------');
-  }
+  });
 
   Color get color => Colors.blue.withOpacity((index % 10) * 0.1);
 

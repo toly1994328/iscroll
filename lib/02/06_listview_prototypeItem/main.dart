@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
       ListView(
         children: children,
         prototypeItem: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: FlutterLogo(
 
           ),

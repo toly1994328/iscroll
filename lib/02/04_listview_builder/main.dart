@@ -30,7 +30,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('ListView.builder 测试'),
       ),
-      body: ListView.builder(
+      body: ListView.separated(
+        separatorBuilder: (_,__)=>Divider(),
         itemCount: data.length,
         // cacheExtent: 0,
         itemBuilder: _buildItemByIndex,
@@ -39,6 +40,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildItemByIndex(BuildContext context, int index) {
+    print("======index==$index========");
     return ItemBox(
       index: data[index],
     );

@@ -52,6 +52,15 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  // Widget _buildBox() {
+  //   return SliverToBoxAdapter(
+  //     child: Container(
+  //       height: 60,
+  //       color: Colors.amber,
+  //     ),
+  //   );
+  // }
+
   Widget _buildSliverList() {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
