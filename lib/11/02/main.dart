@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
       TextStyle(color: Colors.blue, fontWeight: FontWeight.bold);
 
   Widget _builder(BuildContext context, SliverConstraints constraints) {
+    print("=====constraints:${constraints}==================");
     return SliverToBoxAdapter(
       child: Container(
         alignment: Alignment.center,
